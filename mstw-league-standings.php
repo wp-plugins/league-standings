@@ -3,7 +3,7 @@
 Plugin Name: League Standings
 Plugin URI: http://shoalsummitsolutions.com
 Description: The League Standings Plugin defines a custom type - Scheduled Games - for use in the MySportTeamWebite framework. Generations a game schedule (html table) using a shortcode.
-Version: 0.1
+Version: 1.0
 Author: Mark O'Donnell
 Author URI: http://shoalsummitsolutions.com
 */
