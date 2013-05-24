@@ -1,0 +1,152 @@
+/* League Standings [mstw_ls_styles] CSS Document 
+ *
+ ************************************************************
+ *  THIS FILE IS THE DEFAULT FOR THE LEAGUE STANDINGS PLUGIN  *
+ ************************************************************
+ *  LEAGUE STANDINGS TABLE
+ *	For the SHORTCODE, the tables have five 'row types': 
+ *	the header row, even rows, odd rows, home games, and away games. 
+ *
+ *	For each row type, you can set:
+ *		1. Text color
+ *		2. Background color
+ *		3. Border style, width, and color
+ *		4. Link attributes - visited, hover, active, etc.
+ *
+ *	There is a separate set of entries for the schedule WIDGET,
+ *	so you can better fit it into the available widget space.
+ *
+ */
+ 
+/******************************************************/
+/* Styles for the STANDINGS TABLE SHORTCODE  */
+/******************************************************/
+
+.mstw-ls-table {
+    border-collapse: collapse!important;
+    border-spacing: 0px;
+}
+
+/* Set the table header attributes */
+.mstw-ls-table-head thead,  .mstw-ls-table-head tr, .mstw-ls-table-head th {
+    background-color: #4f81bd;
+    color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	border-spacing: 0px;
+    border: 2px solid white;  /* So the border does not appear */
+    padding: 2px;
+}
+
+/* Set the even row attributes */
+.mstw-ls-even tr,  .mstw-ls-even td {
+	color: #000;
+	background-color: #b8cce4;
+	border-style: solid; 
+	border-color: #ffffff; 
+	border-width: 2px;
+}
+
+/* Set the even links */
+.mstw-ls-even td a,  .mstw-ls-even td a:visited, .mstw-ls-even td a:active {
+    text-decoration: none;
+    color: #4F81BD;
+}
+
+/* Set the even links hover */
+.mstw-ls-even td a:hover {
+    text-decoration: underline;
+    color: #666;
+}
+
+/* Set the odd row attributes */
+.mstw-ls-odd tr, .mstw-ls-odd td {
+	color: #000;
+	background-color: #DBE5F1;
+	border-style: solid;
+	border-color: #ffffff;
+	border-width: 2px;
+}
+
+/* Set the odd links */
+.mstw-ls-odd td a,  .mstw-ls-odd td a:visited, .mstw-ls-odd td a:active {
+    color: #4F81BD;
+	text-decoration: none;
+}
+
+/* Set the odd links hover */
+.mstw-ls-odd td a:hover {
+    text-decoration: underline;
+    color: #666;
+}
+
+/* Set the home row attributes */
+.mstw-ls-home tr,  .mstw-ls-home td {
+	font-weight: bold!important;
+}
+
+/* Set the home links */
+.mstw-ls-home td a,  .mstw-ls-home td a:visited, .mstw-ls-home td a:active, .mstw-ls-home td a:hover {
+    font-weight: bold!important;
+	text-decoration: underline;
+	color: #000;
+}
+
+/******************************************************/
+/* Styles for the STANDINGS TABLE WIDGET  */
+/******************************************************/
+.mstw-ls-sw-tab {
+    border-collapse: collapse!important;
+    border-spacing: 0px;
+}
+
+/* Set the table header attributes */
+.mstw-ls-sw-tab-head thead,  .mstw-ls-sw-tab-head tr, .mstw-ls-sw-tab-head th {
+    background: #4f81bd;
+    color: #fff;
+	border-spacing: 0px;
+    border: 2px solid white;  /* So the border does not appear */
+    padding: 2px 5px 2px 3px;
+}
+
+/* Set the even row attributes */
+.mstw-ls-sw-even tr,  .mstw-ls-sw-even td {
+	color: #000;
+	background-color: #B8CCE4;
+	border-style: solid; 
+	border-color: #ffffff; 
+	border-width: 2px;
+	padding: 2px 5px 2px 3px!important;
+}
+
+/* Set the even links */
+.mstw-ls-sw-even td a,  .mstw-ls-sw-even td a:visited, .mstw-ls-sw-even td a:active, .mstw-ls-sw-even td a:hover {
+    text-decoration: underline;
+    color: #fff;
+}
+
+/* Set the odd row attributes */
+.mstw-ls-sw-odd tr, .mstw-ls-sw-odd td {
+	color: #000;
+	background-color: #DBE5F1;
+	border-style: solid;
+	border-color: #ffffff;
+	border-width: 2px;
+	padding: 2px 5px 2px 3px!important;
+}
+
+/* Set the odd links */
+.mstw-ls-sw-odd td a,  .mstw-ls-sw-odd td a:visited, .mstw-ls-sw-odd td a:active, .mstw-ls-sw-odd td a:hover {
+    text-decoration: underline;
+    color: #000064;
+}
+
+/* Set the home row attributes */
+.mstw-ls-sw-home tr,  .mstw-ls-sw-home td {
+	font-weight: bold!important;
+}
+
+/* Set the home links */
+.mstw-ls-sw-home td a,  .mstw-ls-sw-home td a:visited, .mstw-ls-sw-home td a:active, .mstw-ls-sw-home td a:hover {
+    font-weight: bold!important;
+}

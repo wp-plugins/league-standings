@@ -1,0 +1,346 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: League Standings\n"
+"POT-Creation-Date: 2013-05-15 16:19-0800\n"
+"PO-Revision-Date: 2013-05-15 16:19-0800\n"
+"Last-Translator: Mark O'Donnell <mark@shoalsummitsolutions.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: c:\\Users\\Mark\\Documents\\Shoal Summit Consulting\\Web "
+"Presence\\mstw-league-standings\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ./includes\n"
+
+#: mstw-league-standings.php:139 mstw-league-standings.php:154
+msgid "Leagues"
+msgstr ""
+
+#: mstw-league-standings.php:140
+msgid "League"
+msgstr ""
+
+#: mstw-league-standings.php:141
+msgid "Search Leagues"
+msgstr ""
+
+#: mstw-league-standings.php:142
+msgid "Popular Leagues"
+msgstr ""
+
+#: mstw-league-standings.php:143
+msgid "All Leagues"
+msgstr ""
+
+#: mstw-league-standings.php:146
+msgid "Edit League"
+msgstr ""
+
+#: mstw-league-standings.php:147
+msgid "Update League"
+msgstr ""
+
+#: mstw-league-standings.php:148
+msgid "Add New League"
+msgstr ""
+
+#: mstw-league-standings.php:149
+msgid "New League Name"
+msgstr ""
+
+#: mstw-league-standings.php:150
+msgid "Separate Leagues with commas"
+msgstr ""
+
+#: mstw-league-standings.php:151
+msgid "Add or Remove Leagues"
+msgstr ""
+
+#: mstw-league-standings.php:152
+msgid "Choose from the most used Leagues"
+msgstr ""
+
+#: mstw-league-standings.php:153
+msgid "No Leagues found"
+msgstr ""
+
+#: mstw-league-standings.php:188
+msgid "MSTW Teams"
+msgstr ""
+
+#: mstw-league-standings.php:189 mstw-league-standings.php:222
+msgid "Team"
+msgstr ""
+
+#: mstw-league-standings.php:190
+msgid "All Teams"
+msgstr ""
+
+#: mstw-league-standings.php:191
+msgid "Add New Team"
+msgstr ""
+
+#: mstw-league-standings.php:192
+msgid "Add Team"
+msgstr ""
+
+#: mstw-league-standings.php:193
+msgid "Edit Team"
+msgstr ""
+
+#: mstw-league-standings.php:194
+msgid "New Team"
+msgstr ""
+
+#: mstw-league-standings.php:197
+msgid "Search Teams"
+msgstr ""
+
+#: mstw-league-standings.php:198
+msgid "No Teams Found"
+msgstr ""
+
+#: mstw-league-standings.php:199
+msgid "No Teams Found In Trash"
+msgstr ""
+
+#: mstw-league-standings.php:220 includes/mstw-league-standings-admin.php:367
+msgid "Rank"
+msgstr ""
+
+#: mstw-league-standings.php:225 includes/mstw-league-standings-admin.php:368
+msgid "GP"
+msgstr ""
+
+#: mstw-league-standings.php:227 includes/mstw-league-standings-admin.php:369
+msgid "W"
+msgstr ""
+
+#: mstw-league-standings.php:229 includes/mstw-league-standings-admin.php:370
+msgid "L"
+msgstr ""
+
+#: mstw-league-standings.php:231 includes/mstw-league-standings-admin.php:371
+msgid "T"
+msgstr ""
+
+#: mstw-league-standings.php:233
+msgid "OTW"
+msgstr ""
+
+#: mstw-league-standings.php:235
+msgid "Percent"
+msgstr ""
+
+#: mstw-league-standings.php:237
+msgid "PTS"
+msgstr ""
+
+#: mstw-league-standings.php:239
+msgid "GB"
+msgstr ""
+
+#: mstw-league-standings.php:241
+msgid "GF"
+msgstr ""
+
+#: mstw-league-standings.php:243
+msgid "GA"
+msgstr ""
+
+#: mstw-league-standings.php:245
+msgid "GD"
+msgstr ""
+
+#: mstw-league-standings.php:247
+msgid "L10"
+msgstr ""
+
+#: mstw-league-standings.php:249
+msgid "L5"
+msgstr ""
+
+#: mstw-league-standings.php:251
+msgid "Streak"
+msgstr ""
+
+#: mstw-league-standings.php:253
+msgid "Home"
+msgstr ""
+
+#: mstw-league-standings.php:255
+msgid "Away"
+msgstr ""
+
+#: mstw-league-standings.php:257
+msgid "Div"
+msgstr ""
+
+#: mstw-league-standings.php:259
+msgid "Conf"
+msgstr ""
+
+#: mstw-league-standings.php:519
+msgid "Sorry, no teams were found in league "
+msgstr ""
+
+#: mstw-league-standings.php:669
+msgid "DATE"
+msgstr ""
+
+#: mstw-league-standings.php:670
+msgid "OPPONENT"
+msgstr ""
+
+#: mstw-league-standings.php:729
+msgid "No Scheduled Games Found"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:113
+msgid "Rank (or Place):"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:119
+msgid "Team Name:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:125
+msgid "Team Link:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:131
+msgid "Team Mascot:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:137
+msgid "Games Played:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:143
+msgid "Wins:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:149
+msgid "Losses:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:155
+msgid "Ties:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:161
+msgid "Other:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:167
+msgid "Win Percentage (INFO ONLY):"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:169
+msgid ""
+"Win percentage is calculated from Wins, Losses and Ties. See documentation "
+"for formula and how to modify it."
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:173
+msgid "Points:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:176
+msgid ""
+"Points are calculated differently in different leagues, so right now you "
+"have to enter them. [This could change in a future release.]"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:181
+msgid "Games Behind:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:184
+msgid ""
+"Right now you have to enter Games Behind if you want it. It will be "
+"calculated for you in a future release."
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:188
+msgid "Goals For:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:194
+msgid "Goals Against:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:200
+msgid "Record in Last 5 Games:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:206
+msgid "Record in Last 10 Games:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:212
+msgid "Current Streak:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:218
+msgid "Home Record:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:224
+msgid "Road Record:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:230
+msgid "Record in Division:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:236
+msgid "Record in Conference:"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:364
+msgid "Title"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:365
+msgid "Name"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:366
+msgid "Mascot"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:372
+msgid "Other"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:373
+msgid "Goals For"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:374
+msgid "Goals Against"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:375
+msgid "Last 5"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:376
+msgid "Last 10"
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:1176
+msgid "Display settings to control your DEFAULT standings tables. "
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:1176
+msgid "You can override these defaults with arguments in your shortcodes. "
+msgstr ""
+
+#: includes/mstw-league-standings-admin.php:1341
+msgid "Enter the date-time formats for your shortcodes and widgets. "
+msgstr ""
