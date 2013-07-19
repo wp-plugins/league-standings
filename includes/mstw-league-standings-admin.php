@@ -21,14 +21,23 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
-// ----------------------------------------------------------------
-/* Load the mstw-utility-functions if necessary
-	if ( !function_exists( 'mstw_sanitize_hex_color' ) ) {
-		require_once 'mstw-utility-functions.php';
-	}
-
+	/* DEBUG STUFF
+	echo '<p> mstw-league-standings-admin.php __FILE__ : ' . __FILE__  . '</p>';
+	echo '<p> mstw-league-standings-admin.php dirname( __FILE__ ): ' . dirname( __FILE__ ) . '</p>';
+	echo '<p> mstw-league-standings-admin.php plugins_url(): ' . plugins_url() . '</p>';
+	echo '<p> mstw-league-standings-admin.php plugins_url( "images/wordpress.png" , __FILE__ ): ' . plugins_url( 'images/wordpress.png' , __FILE__ ) . '</p>';
+	echo '<p> mstw-league-standings-admin.php plugin_dir_path( __FILE__ ): ' . plugin_dir_path( __FILE__ ) . '</p>';
+	echo '<p> mstw-league-standings-admin.php dirname(plugin_dir_path( __FILE__ )): ' . dirname( plugin_dir_path( __FILE__ ) ). '</p>';
 	*/
+
+	// ----------------------------------------------------------------
+	// Load the mstw-admin-utility-functions if necessary
+	
+	if ( !function_exists( 'mstw_text_ctrl' ) ) {
+			//echo '<p> mstw_text_ctrl does not exist. </p>';
+			//echo '<p> path:' . plugin_dir_path( __FILE__ ) . 'mstw-admin-utility-functions.php' . '</p>';
+			require_once  plugin_dir_path( __FILE__ ) . 'mstw-admin-utility-functions.php';
+	}
 	
 // ----------------------------------------------------------------
 // enqueue the color picker scripts and styles 
@@ -60,18 +69,20 @@ function mstw_ls_add_styles( ) {
 	
 	// ----------------------------------------------------------------
 	// Remove Quick Edit Menu	
-		add_filter( 'post_row_actions', 'mstw_ls_remove_quick_edit', 10, 2 );
+	add_filter( 'post_row_actions', 'mstw_ls_remove_quick_edit', 10, 2 );
 
-		function mstw_ls_remove_quick_edit( $actions, $post ) {
-			if( $post->post_type == 'league_team' ) {
-				unset( $actions['inline hide-if-no-js'] );
-			}
-			return $actions;
+	function mstw_ls_remove_quick_edit( $actions, $post ) {
+		if( $post->post_type == 'league_team' ) {
+			unset( $actions['inline hide-if-no-js'] );
 		}
+		return $actions;
+	}
 	
+	// ----------------------------------------------------------------
 	// Remove the Bulk Actions pull-down
 	add_filter( 'bulk_actions-' . 'edit-league_team', '__return_empty_array' );	
 	
+	// ----------------------------------------------------------------
 	// Add a filter the All Teams screen based on the Leagues Taxonomy
 	add_action( 'restrict_manage_posts', 'mstw_leagues_filter' );
 	
@@ -101,54 +112,20 @@ function mstw_ls_add_styles( ) {
 				echo "</select>";
 			}
 		}
-		
-		/*global $typenow;
-		global $wp_query;
-		if ( $typenow == 'league_team' ) {
-			$taxonomy = 'leagues';
-			$leagues_taxonomy = get_taxonomy( $taxonomy );
-			wp_dropdown_categories( array(
-				'show_option_all' =>  __( "Show All {$leagues_taxonomy->label}" ),
-				'taxonomy'        =>  $taxonomy,
-				'name'            =>  'leagues',
-				'orderby'         =>  'name',
-				'selected'        =>  $wp_query->query['term'],
-				'hierarchical'    =>  false,
-				//'depth'           =>  3,
-				'show_count'      =>  true, // Show # teams in parens
-				'hide_empty'      =>  false, // Show leagues w/o teams
-			));
-		} */
-	}
-	
-	// Now query (and display) Teams based on the Leagues filter
-	//add_filter( 'parse_query', 'mstw_league_id_to_term' );
-	
-	function mstw_league_id_to_term( $query ) {
-		global $pagenow;
-		$qv = &$query->query_vars;
-		if ($pagenow=='edit.php' &&
-				isset( $qv['taxonomy'] ) && $qv['taxonomy']=='leagues' &&
-				isset( $qv['term'] ) && is_numeric( $qv['term']) ) {
-			$term = get_term_by( 'id', $qv['term'], 'leagues' );
-			$qv['term'] = $term->slug;
-		}
-		echo "<p>qv['term']: " . $qv['term'] . '</p>';
-		echo '<p>term->slug: ' . $qv['term'] . '</p>';
-		echo '<p>$pagenow: ' . $pagenow . '</p>';
-		echo "<p>qv['taxonomy']: " . $qv['taxonomy'] . '</p>';
-		print_r( $qv );
-		
 	}
 		
 	// ----------------------------------------------------------------
 	// Create the meta box for the League Standing custom post type (league_team)
-		add_action( 'add_meta_boxes', 'mstw_ls_add_meta_box' );
+	add_action( 'add_meta_boxes', 'mstw_ls_add_meta_box' );
 
-		function mstw_ls_add_meta_box( ) {
-			add_meta_box('mstw-ls-meta', 'Team', 'mstw_ls_create_ui', 
-							'league_team', 'normal', 'high' );
-		}
+	function mstw_ls_add_meta_box( ) {
+		add_meta_box(	'mstw-ls-meta', 
+						__( 'Team', 'mstw-loc-domain' ),
+						'mstw_ls_create_ui', 
+						'league_team', 
+						'normal', 
+						'high' );
+	}
 
 	// ----------------------------------------------------------------
 	// Creates the UI form for entering a Team in the Admin page
@@ -248,7 +225,6 @@ function mstw_ls_add_styles( ) {
 			<td><?php _e( 'Points are calculated differently in different leagues, so right now you have to enter them. [This could change in a future release.]', 'mstw-loc-domain' ); ?></td>
 		</tr>
 		
-	  
 		<tr valign="top">
 			<th scope="row"><label for="mstw_ls_games_behind" ><?php _e( 'Games Behind:', 'mstw-loc-domain' ); ?></label></th>
 			<td><input maxlength="32" size="20" name="mstw_ls_games_behind"
@@ -309,37 +285,6 @@ function mstw_ls_add_styles( ) {
 			<td><input maxlength="32" size="20" name="mstw_ls_conference"
 				value="<?php echo esc_attr( $conference ); ?>"/></td>
 		</tr>
-		 
-		<?php /* MAY WANT THIS sOMEDAY FOR TAXONOMY
-		$plugin_active = 'Inactive';
-		if( is_plugin_active('game-locations/mstw-game-locations.php') ) { 
-			$plugin_active = 'Active';
-			$locations = get_posts(array( 'numberposts' => -1,
-							  'post_type' => 'game_locations',
-							  'orderby' => 'title',
-							  'order' => 'ASC' 
-							));						
-	
-			if( $locations ) {
-				echo '<tr valign="top">';
-				echo '<th>Select Location from Game Locations:</th>';
-				echo "<td><select id='mstw_ls_gl_location' name='mstw_ls_gl_location'>";
-				foreach( $locations as $loc ) {
-					$selected = ( $mstw_ls_gl_location == $loc->ID ) ? 'selected="selected"' : '';
-					echo "<option value='" . $loc->ID . "'" . $selected . ">" . get_the_title( $loc->ID ) . "</option>";
-				}
-				echo "</select></td>";
-				echo "<td>Note: this setting requires that the Game Locations plugin is activated. It is preferred to using the custom location and link settings below.</td>";
-				echo "</tr>";
-				
-			}
-		} //End: if (is_plugin_active) 
-		else {
-			echo '<tr valign="top">';
-			echo '<th scope="row">Game Locations Plugin:</th>';
-			echo "<td>Please activate the <a href='http://wordpress.org/extend/plugins/game-locations/' title='Game Locations Plugin'>Game Locations Plugin</a> to use this feature. It makes life a lot simpler for 'normal' Game Schedules use.</td>";
-			echo '</tr>';
-		} */ ?>
 		
 		</table>
 		
@@ -471,17 +416,17 @@ function mstw_ls_add_styles( ) {
 				//$temp = sanitize_text_field( get_post_meta( $post_id, 'mstw_ls_name', true ) );
 				//global $typenow;
 				//if ($typenow=='listing') {
-					$taxonomy = 'leagues';
-					
-					$leagues = get_the_terms( $post_id, $taxonomy );
-					if ( is_array( $leagues) ) {
-						foreach($leagues as $key => $league ) {
-							//$edit_link = get_term_link( $league, $taxonomy );
-							$leagues[$key] =  $league->name;
-						}
-							//echo implode("<br/>",$businesses);
-							echo implode( ' | ', $leagues );
+				$taxonomy = 'leagues';
+				
+				$leagues = get_the_terms( $post_id, $taxonomy );
+				if ( is_array( $leagues) ) {
+					foreach($leagues as $key => $league ) {
+						//$edit_link = get_term_link( $league, $taxonomy );
+						$leagues[$key] =  $league->name;
 					}
+						//echo implode("<br/>",$businesses);
+						echo implode( ' | ', $leagues );
+				}
 				/*$terms = wp_get_post_terms( $post_id, 'leagues' );
 				$temp = $terms;
 				print_r( '%s', $temp );*/
@@ -612,7 +557,7 @@ function mstw_ls_add_styles( ) {
 				<?php do_settings_sections( 'mstw_ls_settings' ); ?>
 				<p>
 				<input name="Submit" type="submit" class="button-primary" value=<?php _e( "Save Changes", "mstw-loc-domain" ); ?>  />
-				<!-- <input type="submit" name="mstw_ls_options[submit]" value=<?php _e( "Submit 2", "mstw-loc-domain" ); ?> /> -->
+				
 				<input type="submit" name="mstw_ls_options[reset]" value="Reset Default Values" />
 				<strong><?php _e( "WARNING! Reset Default Values will do so without further warning!", "mstw-loc-domain" ); ?></strong>
 				</p>
@@ -695,7 +640,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_rank',
 			'Show Rank Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -711,7 +656,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_rank_label',
 			'Rank Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -726,7 +671,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_games_played',
 			'Show Games Played Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -742,7 +687,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_games_played_label',
 			'Games Played Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -758,7 +703,7 @@ function mstw_ls_add_styles( ) {
 			'mstw_ls_show_wins',
 			'Show Wins Column:',
 			//'mstw_ls_show_wins_ctrl',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -774,7 +719,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_wins_label',
 			'Wins Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -790,7 +735,7 @@ function mstw_ls_add_styles( ) {
 			'mstw_ls_show_losses',
 			'Show Losses Column:',
 			//'mstw_ls_show_losses_ctrl',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -805,7 +750,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_losses_label',
 			'Losses Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -821,7 +766,7 @@ function mstw_ls_add_styles( ) {
 			'mstw_ls_show_ties',
 			'Show Ties Column:',
 			//'mstw_ls_show_ties_ctrl',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -836,7 +781,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_ties_label',
 			'Ties Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -852,7 +797,7 @@ function mstw_ls_add_styles( ) {
 			'mstw_ls_show_other',
 			'Show Other Column:',
 			//'mstw_ls_show_other_ctrl',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -867,7 +812,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_other_label',
 			'Other Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -882,7 +827,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_percent',
 			'Show Win Percentage Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -897,7 +842,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_percent_label',
 			'Win Percentage Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -912,7 +857,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_points',
 			'Show Points Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -927,7 +872,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_points_label',
 			'Points Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -942,7 +887,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_games_behind',
 			'Show Games Behind Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -957,7 +902,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_games_behind_label',
 			'Games Behind Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -972,7 +917,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_goals_for',
 			'Show Goals For Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -987,7 +932,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_goals_for_label',
 			'Goals For Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1002,7 +947,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_goals_against',
 			'Show Goals Against Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1017,7 +962,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_goals_against_label',
 			'Goals Against Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1032,7 +977,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_goals_diff',
 			'Show Goals Differential Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1047,7 +992,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_goals_diff_label',
 			'Goals Differential Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1062,7 +1007,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_last_10',
 			'Show Last 10 Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1077,7 +1022,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_last_10_label',
 			'Last 10 Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1092,7 +1037,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_last_5',
 			'Show Last 5 Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1107,7 +1052,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_last_5_label',
 			'Last 5 Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1122,7 +1067,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_streak',
 			'Show Streak Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1137,7 +1082,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_streak_label',
 			'Streak Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1152,7 +1097,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_home',
 			'Show Home Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1167,7 +1112,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_home_label',
 			'Home Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1182,7 +1127,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_away',
 			'Show Away Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1197,7 +1142,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_away_label',
 			'Away Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1212,7 +1157,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_division',
 			'Show Division Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1227,7 +1172,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_division_label',
 			'Division Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1242,7 +1187,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_conference',
 			'Show Conference Column:',
-			'mstw_ls_checkbox_ctrl',
+			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1257,7 +1202,7 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_conference_label',
 			'Conference Column Label:',
-			'mstw_ls_text_ctrl',
+			'mstw_text_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
 			$args
@@ -1476,7 +1421,7 @@ function mstw_ls_add_styles( ) {
 					case 'sp_main_text_color':
 						
 						// validate the color for proper hex format
-						$sanitized_color = mstw_sanitize_hex_color( $input[$key] );
+						$sanitized_color = mstw_sanitize_hex_color_1( $input[$key] );
 						
 						// decide what to do - save new setting 
 						// or display error & revert to last setting

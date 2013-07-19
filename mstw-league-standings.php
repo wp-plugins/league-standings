@@ -31,6 +31,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 	/*---------------------------------------------------------------
 	 * Load the mstw-utility-functions if necessary
 	 *---------------------------------------------------------------*/
+	/* DEBUG STUFF
+	echo '<p> mstw-league-standings.php __FILE__ : ' . __FILE__  . '</p>';
+	echo '<p> mstw-league-standings.php dirname( __FILE__ ): ' . dirname( __FILE__ ) . '</p>';
+	echo '<p> mstw-league-standings.php plugins_url(): ' . plugins_url() . '</p>';
+	echo '<p> mstw-league-standings.php plugins_url( "images/wordpress.png" , __FILE__ ): ' . plugins_url( 'images/wordpress.png' , __FILE__ ) . '</p>';
+	echo '<p> mstw-league-standings.php plugin_dir_path( __FILE__ ): ' . plugin_dir_path( __FILE__ ) . '</p>';
+	*/
 	
 	// ----------------------------------------------------------------
 	// If an admin, load the admin functions (once)
@@ -110,26 +117,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 		} 
 	}
-
-	// --------------------------------------------------------------------------------------
-	// LEAGUE STANDINGS CUSTOM POST TYPE STUFF
-	// --------------------------------------------------------------------------------------
-	// Set-up Action Hooks & Filters
-	// ACTIONS
-	// 		'init'											mstw_ls_register_post_type
-	//		'add_metaboxes'									mstw_ls_add_meta
-	//		'save_posts'									mstw_ls_save_meta
-	//		'manage_game_schedule_posts_custom_column'		mstw_ls_manage_columns
-
-	// FILTERS
-	// 		'manage_edit-game_schedule_columns'				mstw_ls_edit_columns
-	//		'post_row_actions'								mstw_ls_remove_the_view
-	//		
-	// --------------------------------------------------------------------------------------
-
+	
+	// ----------------------------------------------------------------
 	// Register the Teams post type
 	add_action( 'init', 'mstw_ls_register_post_type' );
 	
+	// ----------------------------------------------------------------
 	// Add the custom Leagues taxonomy ... will act like tags	
 	add_action( 'init', 'mstw_ls_register_taxonomy' );
 
@@ -160,7 +153,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 					'show_ui'             => true,
 					'show_admin_column'   => true,
 					'query_var'           => true,
-					'rewrite'             => array( 'slug' => 'league' )
+					//'rewrite'             => array( 'slug' => 'league' )
+					'rewrite'			=> true
 				  );
 		
 		register_taxonomy( 'leagues', 'league_team', $args );

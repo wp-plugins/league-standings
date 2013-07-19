@@ -38,7 +38,7 @@
  *
  *	NOTE that the checked value is always '1'.
  *
- *	return - none. Control is displayed.
+ *	Return - none. Control is displayed.
  *---------------------------------------------------------------*/
 	function mstw_checkbox_ctrl( $args ) { 
 		$id = 		$args['id'];
@@ -53,16 +53,47 @@
 	}	//End: mstw_checkbox_ctrl
 	
 /*----------------------------------------------------------------	
+ *	Shortcut to build 'Show-Hide' Select-Option controls for the admin UI
+ *	Just like mstw_select_option_ctrl with hard-wired options - 
+ *	Show => 1, Hide => 0
+ *
+ * 	Arguments: 
+ *	 $args['id'] (string)		Setting name from option array
+ *	 $args['name'] (string)		Name of input field
+ *	 $args['value'] (string)	Current value of setting
+ *	 $args['label'] (string)	Default to use of setting is blank
+ *
+ *	Return - none. Output is echoed.
+ *---------------------------------------------------------------*/	
+	function mstw_show_hide_ctrl( $args ) {
+	
+		$options = array( 'Show' => 1, 'Hide' => 0 );
+		$name = $args['name'];
+		$id = $args['id'];
+		$curr_value = $args['value'];
+		$label = $args['label'];
+		
+		echo "<select id='$id' name='$name' style='width: 160px' >";
+		foreach( $options as $key=>$value ) {
+			$selected = ( $curr_value == $value ) ? 'selected="selected"' : '';
+			echo "<option value='$value' $selected>$key</option>";
+		}
+		echo "</select> \n";
+		echo "<label for='$id'>$label</label> \n";
+		
+	}  //End: mstw_show_hide_ctrl
+	
+/*----------------------------------------------------------------	
  *	Builds Select-Option controls for the admin UI
  *
  * 	Arguments:
- *	$options (array) :	key/value pairs for the options 
- *	$args['id'] (string):			setting name  from option array
- *	$args['name']
- *	$args['value'] (string):	current value of setting
- *	$args['label'] (string):	default to use of setting is blank
+ *	 $args['options'] (array)	Key/value pairs for the options 
+ *	 $args['id'] (string)		Setting name from option array
+ *	 $args['name'] (string)		Name of input field
+ *	 $args['value'] (string)	Current value of setting
+ *	 $args['label'] (string)	Default to use of setting is blank
  *
- *	return - none. Output is echoed.
+ *	Return - none. Output is echoed.
  *---------------------------------------------------------------*/
 	function mstw_select_option_ctrl( $args ) {
 		
@@ -70,6 +101,7 @@
 		$name = $args['name'];
 		$id = $args['id'];
 		$curr_value = $args['value'];
+		$label = $args['label'];
 		
 		echo "<select id='$id' name='$name' style='width: 160px' >";
 		foreach( $options as $key=>$value ) {
@@ -81,4 +113,26 @@
 		echo "<label for='$id'>$label</label> \n";
 		
 	}  //End: mstw_select_option_ctrl
+
+
+/*----------------------------------------------------------------	
+ *	Sanitization Functions
+ *---------------------------------------------------------------*/	
+	function mstw_sanitize_hex_color_1( $color ) {
+		// Check $color for proper hex color format (3 or 6 digits) or the empty string.
+		// Returns corrected string if valid hex color, returns null otherwise
+		
+		if ( '' === $color )
+			return '';
+
+		// 3 or 6 hex digits, or the empty string.
+		if ( preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) )
+			return $color;
+
+		return null;
+	}
+
+	function mstw_sanitize_number_1 ( $number ) {
+
+	}
 ?>
