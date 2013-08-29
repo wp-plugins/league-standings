@@ -89,6 +89,11 @@ Not now. If there is sufficient need, one can be provided in a future release. L
 
 == Changelog ==
 
+= 1.1 =
+* Removed Popular Items from Leagues admin screen (annoying)
+* Fixed filter on league in Manage All Teams admin screen
+* Upgraded MSTW icons on admin menus and screens
+
 = 1.0 =
 * Initial release.
 

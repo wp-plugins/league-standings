@@ -62,10 +62,32 @@ function mstw_ls_add_styles( ) {
     }
     
     //Load our custom javascript file
-    wp_enqueue_script( 'wp-color-picker-settings', plugin_dir_url( ) . 'game-schedules/js/color-settings.js' );
-	$just_playing = 'Enqueueing: ' . plugin_dir_url(  ) . 'game-schedules/js/color-settings.js';
+    wp_enqueue_script( 'wp-color-picker-settings', plugin_dir_url( ) . 'league-standings/js/color-settings.js' );
+	$just_playing = 'Enqueueing: ' . plugin_dir_url(  ) . 'league-standings/js/color-settings.js';
   }
 */	
+	
+	// Add the custom MSTW icon to CPT pages
+	add_action('admin_head', 'mstw_ls_custom_css');
+
+	function mstw_ls_custom_css() { ?>
+		<style type="text/css">
+			#icon-mstw-ls-main-menu.icon32 {
+				background: url('<?php echo plugins_url( '/league-standings/images/mstw-logo-32x32.png', 'league-standings' );?>') transparent no-repeat;
+			}
+			#icon-league_team.icon32 {
+				background: url( '<?php echo plugins_url( '/league-standings/images/mstw-logo-32x32.png', 'league-standings' );?>') transparent no-repeat;
+			}
+			#icon-edit.icon32-posts-league_team {
+				background: url( '<?php echo plugins_url( '/league-standings/images/mstw-logo-32x32.png', 'league-standings' );?>') transparent no-repeat;
+			}
+			#menu-posts-league_team .wp-menu-image {
+				background-image: url('<?php echo plugins_url( '/league-standings/images/mstw-admin-menu-icon.png', 'league-standings' );?>') no-repeat 6px -17px !important;
+			}
+			
+		</style>
+	<?php }
+	
 	
 	// ----------------------------------------------------------------
 	// Remove Quick Edit Menu	
@@ -84,34 +106,30 @@ function mstw_ls_add_styles( ) {
 	
 	// ----------------------------------------------------------------
 	// Add a filter the All Teams screen based on the Leagues Taxonomy
-	add_action( 'restrict_manage_posts', 'mstw_leagues_filter' );
-	
-	function mstw_leagues_filter( ) {
-	
-		// only display these taxonomy filters on desired custom post_type listings
+	add_action('restrict_manage_posts','mstw_ls_restrict_manage_posts');
+	function mstw_ls_restrict_manage_posts( ) {
 		global $typenow;
-		if ( $typenow == 'league_team' ) {
 
-			// create an array of taxonomy slugs you want to filter by - if you want to retrieve all taxonomies, could use get_taxonomies() to build the list
-			$filters = array('leagues');
-
-			foreach ($filters as $tax_slug) {
-				// retrieve the taxonomy object
-				$tax_obj = get_taxonomy($tax_slug);
-				$tax_name = $tax_obj->labels->name;
-				// retrieve array of term objects per taxonomy
-				$terms = get_terms($tax_slug);
-
-				// output html for taxonomy dropdown filter
-				echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
-				echo "<option value=''>Show All $tax_name</option>";
-				foreach ($terms as $term) {
-					// output each select option line, check against the last $_GET to show the current option selected
-					echo '<option value='. $term->slug, $_GET[$tax_slug] == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>';
-				}
-				echo "</select>";
-			}
+		if ( $typenow=='league_team' ){
+			$args = array(
+						'show_option_all' => 'All Leagues',
+						'taxonomy' => 'leagues',
+						'name' => 'leagues',
+						'orderby' => 'name',
+						'selected' => $_GET['leagues'],
+						'show_count' => true,
+						'hide_empty' => true,
+						);
+			wp_dropdown_categories( $args );
 		}
+	}
+	
+	add_action( 'request', 'mstw_ls_request' );
+	function mstw_ls_request( $request ) {
+		if ( is_admin( ) && $GLOBALS['PHP_SELF'] == '/wp-admin/edit.php' && isset( $request['post_type'] ) && $request['post_type']=='player' ) {
+			$request['term'] = get_term( $request['teams'], 'teams' )->name;
+		}
+		return $request;
 	}
 		
 	// ----------------------------------------------------------------
@@ -1362,17 +1380,6 @@ function mstw_ls_add_styles( ) {
 	
     echo $html;  
 }
-
-	/*function mstw_ls_color_ctrl( ) {
-		global $just_playing;
-	?>
-		<input id="ls_color" name="mstw_ls_options[ls_color]" type="text" value="" />
-		<div id="colorpicker"></div>
-	<?php
-		echo '<p>' . plugin_dir_url( ) . 'game-schedules/js/settings.js' . '</p>';
-		echo '<p>' . $just_playing . '</p>';
-	}
-	*/
 
 // ----------------------------------------------------------------	
 // 	Date-time format section instructions and controls	

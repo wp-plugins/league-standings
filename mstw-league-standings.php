@@ -28,6 +28,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+
+
 	/*---------------------------------------------------------------
 	 * Load the mstw-utility-functions if necessary
 	 *---------------------------------------------------------------*/
@@ -132,7 +134,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 					'name' 				   		   => __( 'Leagues', 'mstw-loc-domain' ),
 					'singular_name' 			   =>  __( 'League', 'mstw-loc-domain' ),
 					'search_items' 				   => __( 'Search Leagues', 'mstw-loc-domain' ),
-					'popular_items' 			   => __( 'Popular Leagues', 'mstw-loc-domain' ),
+					'popular_items' 			   => null, //removes tagcloud __( 'Popular Leagues', 'mstw-loc-domain' ),
 					'all_items' 				   => __( 'All Leagues', 'mstw-loc-domain' ),
 					'parent_item' 				   => null,
 					'parent_item_colon' 		   => null,
@@ -167,6 +169,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 	}
 	// --------------------------------------------------------------------------------------
 	function mstw_ls_register_post_type( ) {
+	
+		$menu_icon_url = plugins_url( ) . '/league-standings/images/mstw-admin-menu-icon.png';
+		
 		/* Set up the arguments for the Game Schedules post type */
 		$args = array(
 			'public' => true,
@@ -179,7 +184,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				'title'
 			),
 			'labels' => array(
-				'name' => __( 'MSTW Teams', 'mstw-loc-domain' ),
+				'name' => __( 'League Standings', 'mstw-loc-domain' ),
 				'singular_name' => __( 'Team', 'mstw-loc-domain' ),
 				'all_items' => __( 'All Teams', 'mstw-loc-domain' ),
 				'add_new' => __( 'Add New Team', 'mstw-loc-domain' ),
@@ -193,6 +198,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				'not_found_in_trash' => __( 'No Teams Found In Trash', 'mstw-loc-domain' ),
 				),
 			    'taxonomies' => array( 'leagues' ),
+				'menu_icon'           	=> $menu_icon_url,
 			);
 			
 		register_post_type( 'league_team', $args);
