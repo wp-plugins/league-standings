@@ -1,5 +1,5 @@
 === League Standings ===
-Contributors: Mark O'Donnell
+Contributors: MarkODonnell
 Donate link: http://shoalsummitsolutions.com
 Tags: sports,leagues,standings,sports leagues,team standings,rankings  
 Requires at least: 3.3.1
