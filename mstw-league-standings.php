@@ -380,6 +380,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 								  'leagues' => $league_id, 		//only posts from custom taxonomy == $league_id
 								  'orderby' => 'meta_value', 
 								  'meta_key' => $sort_key,
+								  'orderby'=>"meta_value_num",
 								  'order' => $sort_order, 
 								) );
 								
