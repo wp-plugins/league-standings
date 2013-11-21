@@ -463,8 +463,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				else // default to name
 					$name_string = get_post_meta( $team->ID, 'mstw_ls_name', true );
 				
-				if ( $show_team_links )
+				if ( $show_team_links and get_post_meta( $team->ID, 'mstw_ls_team_link', true ) != '' ) {
 					$name_string = '<a href="' . get_post_meta( $team->ID, 'mstw_ls_team_link', true ) . '" target="_blank" >' . $name_string . '</a>';
+				}
 				$row_string .= $row_td . $name_string . '</td>';
 				
 				if ( $show_games_played )
