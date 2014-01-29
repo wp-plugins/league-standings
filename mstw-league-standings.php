@@ -378,7 +378,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		$teams = get_posts( array( 'numberposts' => -1,
 								  'post_type' => 'league_team',
 								  'leagues' => $league_id, 		//only posts from custom taxonomy == $league_id
-								  'orderby' => 'meta_value', 
+								  //'orderby' => 'meta_value', 
 								  'meta_key' => $sort_key,
 								  'orderby'=>"meta_value_num",
 								  'order' => $sort_order, 
