@@ -33,7 +33,7 @@
 	// ----------------------------------------------------------------
 	// Load the mstw-admin-utility-functions if necessary
 	
-	if ( !function_exists( 'mstw_text_ctrl' ) ) {
+	if ( !function_exists( 'mstw_ls_admin_utils_loaded' ) ) {
 			//echo '<p> mstw_text_ctrl does not exist. </p>';
 			//echo '<p> path:' . plugin_dir_path( __FILE__ ) . 'mstw-admin-utility-functions.php' . '</p>';
 			require_once  plugin_dir_path( __FILE__ ) . 'mstw-admin-utility-functions.php';
@@ -720,7 +720,6 @@ function mstw_ls_add_styles( ) {
 		add_settings_field(
 			'mstw_ls_show_wins',
 			'Show Wins Column:',
-			//'mstw_ls_show_wins_ctrl',
 			'mstw_checkbox_ctrl',
 			'mstw_ls_settings',
 			'mstw_ls_main_settings',
@@ -1237,32 +1236,7 @@ function mstw_ls_add_styles( ) {
 		'<br/>' . __( 'All color values are in hex, starting with a hash(#), followed by either 3 or 6 hex digits. For example, #123abd or #1a2.', 'mstw-loc-domain' ) .  '</p>';
 		*/
 	}
-	
-// ----------------------------------------------------------------	
-//	Show/hide rank column
-	function mstw_ls_show_rank_ctrl( ) {
-		$options = get_option( 'mstw_ls_options' );
-		?>
-		<input type="checkbox" id="ls_show_rank" name="mstw_ls_options[ls_show_rank]" value="1" 
-		<?php checked( "1", $options['ls_show_rank'], true ) ?> />  
-		<label for='ls_show_rank'> Check to show the RANK column in standings tables.</label>
-			
-		<?php  
-	} 
-	
-	// ----------------------------------------------------------------	
-	//	Show/hide WINS column
-	function mstw_ls_show_wins_ctrl( ) {
-		
-		$options = get_option( 'mstw_ls_options' );
-		?>
-		
-		<input type="checkbox" id="ls_show_wins" name="mstw_ls_options[ls_show_wins]" value="1" <?php checked( "1", $options['ls_show_wins'], true ) ?> />  
-		<label for='ls_show_wins'> Check to show the WINS column in standings tables.</label>
-		
-		<?php  
-	} 
-	
+
 /*----------------------------------------------------------------	
  *	MSTW_LS_TEXT_CTRL
  *	Builds text format controls for the admin UI
@@ -1275,7 +1249,7 @@ function mstw_ls_add_styles( ) {
  *
  *	return - none. Control is displayed.
  *---------------------------------------------------------------*/
-	function mstw_ls_text_ctrl( $args ) { 
+/*	function mstw_ls_text_ctrl( $args ) { 
 		$id = $args['id'];
 		$name = $args['name'];
 		$value = $args['value'];
@@ -1285,7 +1259,7 @@ function mstw_ls_add_styles( ) {
 		echo "<label for='$id'>$label</label> \n";
 		
 	} //End: mstw_ls_text_ctrl
-	
+	*/
 /*----------------------------------------------------------------	
  *	MSTW_LS_CHECKBOX_CTRL
  *	Builds checkbox format controls for the admin UI
@@ -1300,7 +1274,7 @@ function mstw_ls_add_styles( ) {
  *
  *	return - none. Control is displayed.
  *---------------------------------------------------------------*/
-	function mstw_ls_checkbox_ctrl( $args ) { 
+/*	function mstw_ls_checkbox_ctrl( $args ) { 
 		$id = 		$args['id'];
 		$name = 	$args['name'];
 		$value = 	$args['value'];
@@ -1312,7 +1286,7 @@ function mstw_ls_add_styles( ) {
 		
 	}	//End: mstw_ls_checkbox_ctrl
 	
-	
+	*/
 /*----------------------------------------------------------------	
  *	Builds Select-Option controls for the admin UI
  *
@@ -1325,7 +1299,7 @@ function mstw_ls_add_styles( ) {
  *
  *	return - none. Output is echoed.
  *---------------------------------------------------------------*/
-	function mstw_ls_select_option_ctrl( $args ) {
+/*	function mstw_ls_select_option_ctrl( $args ) {
 		
 		$options = $args['options'];
 		$name = $args['name'];
@@ -1342,44 +1316,7 @@ function mstw_ls_add_styles( ) {
 		echo "<label for='$id'>$label</label> \n";
 		
 	}
-	
-	function mstw_ls_sort_order_ctrl( ) {
-	$options = get_option( 'mstw_tr_options' );
-	$tr_table_default_format = $options['tr_table_default_format'];
-	
-	// echo the field
-    $html = "<p><input type='radio' id='high-school-format' 
-				name='mstw_tr_options[tr_table_default_format]' value='high-school'" . 
-				checked( "high-school", $options['tr_table_default_format'], false ) . '/>';  
-    $html .= "<label for='high-school-format'> High School Format</label></p>";
-	
-    $html .= "<p><input type='radio' id='college-format' 
-				name='mstw_tr_options[tr_table_default_format]' value='college'" . 
-				checked( "college", $options['tr_table_default_format'], false ) . '/>';  
-    $html .= "<label for='college-format'> College Format</label></p>";
-
-	$html .= "<p><input type='radio' id='pro-format' 
-				name='mstw_tr_options[tr_table_default_format]' value='pro'" . 
-				checked( "pro", $options['tr_table_default_format'], false ) . '/>';  
-    $html .= "<label for='pro-format'> Pro Format</label></p>";
-
-	$html .= "<p><input type='radio' id='hs-baseball-format' 
-				name='mstw_tr_options[tr_table_default_format]' value='hs-baseball'" . 
-				checked( "hs-baseball", $options['tr_table_default_format'], false ) . '/>';  
-    $html .= "<label for='hs-baseball-format'> High School Baseball Format</label></p>";
-	
-	$html .= "<p><input type='radio' id='coll-baseball-format' 
-				name='mstw_tr_options[tr_table_default_format]' value='coll-baseball'" . 
-				checked( "coll-baseball", $options['tr_table_default_format'], false ) . '/>';  
-    $html .= "<label for='coll-baseball-format'> College Baseball Format</label></p>";
-	
-	$html .= "<p><input type='radio' id='pro-baseball-format' 
-				name='mstw_tr_options[tr_table_default_format]' value='pro-baseball'" . 
-				checked( "pro-baseball", $options['tr_table_default_format'], false ) . '/>';  
-    $html .= "<label for='pro-baseball-format'> Pro Baseball Format</label></p>";
-	
-    echo $html;  
-}
+	*/
 
 // ----------------------------------------------------------------	
 // 	Date-time format section instructions and controls	
@@ -1428,7 +1365,7 @@ function mstw_ls_add_styles( ) {
 					case 'sp_main_text_color':
 						
 						// validate the color for proper hex format
-						$sanitized_color = mstw_sanitize_hex_color_1( $input[$key] );
+						$sanitized_color = mstw_ls_sanitize_hex_color_1( $input[$key] );
 						
 						// decide what to do - save new setting 
 						// or display error & revert to last setting

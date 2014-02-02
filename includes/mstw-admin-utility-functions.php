@@ -1,7 +1,16 @@
 <?php
 /*
- * mstw-admin-utilities
+ * mstw-ls-admin-utilities
  */
+ 
+ /*----------------------------------------------------------------	
+ *	0. MSTW_LS_ADMIN_UTILS_LOADED - DO NOT REMOVE THIS FUNCTION!
+ *		This function is used by require_once statements to figure
+ *		out whether or not to load the utils.
+ *---------------------------------------------------------------*/
+	function mstw_ls_admin_utils_loaded( ) {
+		return( true );
+	}
  
  /*----------------------------------------------------------------	
  *	MSTW_TEXT_CTRL
@@ -15,7 +24,7 @@
  *
  *	return - none. Control is displayed.
  *---------------------------------------------------------------*/
-	function mstw_text_ctrl( $args ) { 
+	function mstw_ls_text_ctrl( $args ) { 
 		$id = $args['id'];
 		$name = $args['name'];
 		$value = $args['value'];
@@ -24,7 +33,7 @@
 		echo "<input type='text' id='$id' name='$name' value='$value' /> \n";
 		echo "<label for='$id'>$label</label> \n";
 		
-	} //End: mstw_text_ctrl
+	} //End: mstw_ls_text_ctrl
 	
 /*----------------------------------------------------------------	
  *	MSTW_CHECKBOX_CTRL
@@ -40,7 +49,7 @@
  *
  *	Return - none. Control is displayed.
  *---------------------------------------------------------------*/
-	function mstw_checkbox_ctrl( $args ) { 
+	function mstw_ls_checkbox_ctrl( $args ) { 
 		$id = 		$args['id'];
 		$name = 	$args['name'];
 		$value = 	$args['value'];
@@ -50,11 +59,11 @@
 				checked( '1', $value, false ) . "/> \n";  
 		echo "<label for='$id'>$label</label> \n";
 		
-	}	//End: mstw_checkbox_ctrl
+	}	//End: mstw_ls_checkbox_ctrl
 	
 /*----------------------------------------------------------------	
  *	Shortcut to build 'Show-Hide' Select-Option controls for the admin UI
- *	Just like mstw_select_option_ctrl with hard-wired options - 
+ *	Just like mstw_ls_select_option_ctrl with hard-wired options - 
  *	Show => 1, Hide => 0
  *
  * 	Arguments: 
@@ -65,7 +74,7 @@
  *
  *	Return - none. Output is echoed.
  *---------------------------------------------------------------*/	
-	function mstw_show_hide_ctrl( $args ) {
+	function mstw_ls_show_hide_ctrl( $args ) {
 	
 		$options = array( 'Show' => 1, 'Hide' => 0 );
 		$name = $args['name'];
@@ -81,7 +90,7 @@
 		echo "</select> \n";
 		echo "<label for='$id'>$label</label> \n";
 		
-	}  //End: mstw_show_hide_ctrl
+	}  //End: mstw_ls_show_hide_ctrl
 	
 /*----------------------------------------------------------------	
  *	Builds Select-Option controls for the admin UI
@@ -95,7 +104,7 @@
  *
  *	Return - none. Output is echoed.
  *---------------------------------------------------------------*/
-	function mstw_select_option_ctrl( $args ) {
+	function mstw_ls_select_option_ctrl( $args ) {
 		
 		$options = $args['options'];
 		$name = $args['name'];
@@ -112,13 +121,13 @@
 		echo "</select> \n";
 		echo "<label for='$id'>$label</label> \n";
 		
-	}  //End: mstw_select_option_ctrl
+	}  //End: mstw_ls_select_option_ctrl
 
 
 /*----------------------------------------------------------------	
  *	Sanitization Functions
  *---------------------------------------------------------------*/	
-	function mstw_sanitize_hex_color_1( $color ) {
+	function mstw_ls_sanitize_hex_color_1( $color ) {
 		// Check $color for proper hex color format (3 or 6 digits) or the empty string.
 		// Returns corrected string if valid hex color, returns null otherwise
 		
@@ -132,7 +141,7 @@
 		return null;
 	}
 
-	function mstw_sanitize_number_1 ( $number ) {
+	function mstw_ls_sanitize_number_1 ( $number ) {
 
 	}
 ?>
