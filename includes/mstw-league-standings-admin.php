@@ -315,75 +315,78 @@ function mstw_ls_add_styles( ) {
 	add_action( 'save_post', 'mstw_ls_save_meta_data' );
 
 	function mstw_ls_save_meta_data( $post_id ) {
+		global $typenow;
 		
-		update_post_meta( $post_id, 'mstw_ls_rank', 
-				strip_tags( $_POST['mstw_ls_rank'] ) );
-		
-		update_post_meta( $post_id, 'mstw_ls_name', 
-				strip_tags( $_POST['mstw_ls_name'] ) );
-				
-		update_post_meta( $post_id, 'mstw_ls_team_link', 
-				esc_url_raw( $_POST['mstw_ls_team_link'] ) );
-				
-		update_post_meta( $post_id, 'mstw_ls_mascot', 
-				strip_tags( $_POST['mstw_ls_mascot'] ) );
-		
-		update_post_meta( $post_id, 'mstw_ls_games_played', 
-				strip_tags( $_POST['mstw_ls_games_played'] ) );
-		
-		update_post_meta( $post_id, 'mstw_ls_wins', 
-				strip_tags( $_POST['mstw_ls_wins'] ) );
-				
-		update_post_meta( $post_id, 'mstw_ls_losses', 
-				strip_tags( $_POST['mstw_ls_losses'] ) );
-		
-		update_post_meta( $post_id, 'mstw_ls_ties', 
-				strip_tags( $_POST['mstw_ls_ties'] ) );
-				
-		update_post_meta( $post_id, 'mstw_ls_other', 
-				strip_tags( $_POST['mstw_ls_other'] ) );
-		// calculate win percentage - note that this doesn't work for the NHL
-		$games = intval( $_POST['mstw_ls_wins'] ) + intval( $_POST['mstw_ls_losses'] ) + intval( $_POST['mstw_ls_ties'] );
-		if ( $games >0 )
-			$percent = round( (intval( $_POST['mstw_ls_wins'] ) + .5*intval( $_POST['mstw_ls_ties'] ))/$games, 3 );
-		else
-			$percent = ''; //No games played
+		if ( $typenow == 'league_team' ) {
+			update_post_meta( $post_id, 'mstw_ls_rank', 
+					strip_tags( $_POST['mstw_ls_rank'] ) );
 			
-		update_post_meta( $post_id, 'mstw_ls_percent', 
-				$percent ); 
+			update_post_meta( $post_id, 'mstw_ls_name', 
+					strip_tags( $_POST['mstw_ls_name'] ) );
+					
+			update_post_meta( $post_id, 'mstw_ls_team_link', 
+					esc_url_raw( $_POST['mstw_ls_team_link'] ) );
+					
+			update_post_meta( $post_id, 'mstw_ls_mascot', 
+					strip_tags( $_POST['mstw_ls_mascot'] ) );
+			
+			update_post_meta( $post_id, 'mstw_ls_games_played', 
+					strip_tags( $_POST['mstw_ls_games_played'] ) );
+			
+			update_post_meta( $post_id, 'mstw_ls_wins', 
+					strip_tags( $_POST['mstw_ls_wins'] ) );
+					
+			update_post_meta( $post_id, 'mstw_ls_losses', 
+					strip_tags( $_POST['mstw_ls_losses'] ) );
+			
+			update_post_meta( $post_id, 'mstw_ls_ties', 
+					strip_tags( $_POST['mstw_ls_ties'] ) );
+					
+			update_post_meta( $post_id, 'mstw_ls_other', 
+					strip_tags( $_POST['mstw_ls_other'] ) );
+			// calculate win percentage - note that this doesn't work for the NHL
+			$games = intval( $_POST['mstw_ls_wins'] ) + intval( $_POST['mstw_ls_losses'] ) + intval( $_POST['mstw_ls_ties'] );
+			if ( $games >0 )
+				$percent = round( (intval( $_POST['mstw_ls_wins'] ) + .5*intval( $_POST['mstw_ls_ties'] ))/$games, 3 );
+			else
+				$percent = ''; //No games played
 				
-		update_post_meta( $post_id, 'mstw_ls_points', 
-				strip_tags( $_POST['mstw_ls_points'] ) );
-				
-		update_post_meta( $post_id, 'mstw_ls_games_behind', 
-				strip_tags( $_POST['mstw_ls_games_behind'] ) );
-				
-		update_post_meta( $post_id, 'mstw_ls_goals_for', 
-				strip_tags( $_POST['mstw_ls_goals_for'] ) );
-				
-		update_post_meta( $post_id, 'mstw_ls_goals_against', 
-				strip_tags( $_POST['mstw_ls_goals_against'] ) );
-				
-		update_post_meta( $post_id, 'mstw_ls_last_5', 
-				strip_tags( $_POST['mstw_ls_last_5'] ) );
-				
-		update_post_meta( $post_id, 'mstw_ls_last_10', 
-				strip_tags( $_POST['mstw_ls_last_10'] ) );
-				
-		update_post_meta( $post_id, 'mstw_ls_streak', 
-				strip_tags( $_POST['mstw_ls_streak'] ) );
+			update_post_meta( $post_id, 'mstw_ls_percent', 
+					$percent ); 
+					
+			update_post_meta( $post_id, 'mstw_ls_points', 
+					strip_tags( $_POST['mstw_ls_points'] ) );
+					
+			update_post_meta( $post_id, 'mstw_ls_games_behind', 
+					strip_tags( $_POST['mstw_ls_games_behind'] ) );
+					
+			update_post_meta( $post_id, 'mstw_ls_goals_for', 
+					strip_tags( $_POST['mstw_ls_goals_for'] ) );
+					
+			update_post_meta( $post_id, 'mstw_ls_goals_against', 
+					strip_tags( $_POST['mstw_ls_goals_against'] ) );
+					
+			update_post_meta( $post_id, 'mstw_ls_last_5', 
+					strip_tags( $_POST['mstw_ls_last_5'] ) );
+					
+			update_post_meta( $post_id, 'mstw_ls_last_10', 
+					strip_tags( $_POST['mstw_ls_last_10'] ) );
+					
+			update_post_meta( $post_id, 'mstw_ls_streak', 
+					strip_tags( $_POST['mstw_ls_streak'] ) );
 
-		update_post_meta( $post_id, 'mstw_ls_home', 
-				strip_tags( $_POST['mstw_ls_home'] ) );
+			update_post_meta( $post_id, 'mstw_ls_home', 
+					strip_tags( $_POST['mstw_ls_home'] ) );
 
-		update_post_meta( $post_id, 'mstw_ls_away', 
-				strip_tags( $_POST['mstw_ls_away'] ) );	
+			update_post_meta( $post_id, 'mstw_ls_away', 
+					strip_tags( $_POST['mstw_ls_away'] ) );	
 
-		update_post_meta( $post_id, 'mstw_ls_division', 
-				strip_tags( $_POST['mstw_ls_division'] ) );
-				
-		update_post_meta( $post_id, 'mstw_ls_conference', 
-				strip_tags( $_POST['mstw_ls_conference'] ) );
+			update_post_meta( $post_id, 'mstw_ls_division', 
+					strip_tags( $_POST['mstw_ls_division'] ) );
+					
+			update_post_meta( $post_id, 'mstw_ls_conference', 
+					strip_tags( $_POST['mstw_ls_conference'] ) );
+		}
 		
 	}
 
