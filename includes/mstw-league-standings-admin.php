@@ -572,7 +572,7 @@ function mstw_ls_add_styles( ) {
 		<div class="wrap">
 			<?php screen_icon(); ?>
 			<h2>League Standings Plugin Settings</h2>
-			<?php //settings_errors(); ?>
+			<?php settings_errors( 'mstw_league_standings' ); ?>
 			<form action="options.php" method="post">
 				<?php settings_fields( 'mstw_ls_options_group' ); ?>
 				<?php do_settings_sections( 'mstw_ls_settings' ); ?>
@@ -1403,10 +1403,6 @@ function mstw_ls_add_styles( ) {
 		return $output;
 	}	
 	
-	function mstw_ls_admin_notices() {
-		settings_errors( );
-	}
-	add_action( 'admin_notices', 'mstw_ls_admin_notices' );
 	
 	function mstw_ls_get_defaults( ) {
 		$defaults = array(	'ls_order_by'				=> 'percent',
