@@ -89,6 +89,10 @@ Not now. If there is sufficient need, one can be provided in a future release. L
 
 == Changelog ==
 
+= 1.2 =
+* Cleared up name collisions in the admin utils for the MSTW Framework. YOU MUST USE THIS VERSION OF THE PLUGIN WITH THE MSTW FRAMEWORK.
+* Added a tag (mstw_league_standings) to settings_errors() to prevent multiple "Settings Saved" messages.
+
 = 1.1 =
 * Removed Popular Items from Leagues admin screen (annoying)
 * Fixed filter on league in Manage All Teams admin screen
