@@ -378,7 +378,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		$teams = get_posts( array( 'numberposts' => -1,
 								  'post_type' => 'league_team',
 								  'leagues' => $league_id, 		//only posts from custom taxonomy == $league_id
-								  //'orderby' => 'meta_value', 
+								  'orderby' => 'meta_value', 
 								  'meta_key' => $sort_key,
 								  'orderby'=>"meta_value_num",
 								  'order' => $sort_order, 
@@ -479,7 +479,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				if ( $show_other )
 					$row_string .= $row_td . get_post_meta( $team->ID, 'mstw_ls_other', true ) . '</td>';
 				if ( $show_percent )
-					$row_string .= $row_td . get_post_meta( $team->ID, 'mstw_ls_percent', true ) . '</td>';
+					$row_string .= $row_td . number_format( get_post_meta( $team->ID, 'mstw_ls_percent', true ), 3 ) . '</td>';
 				if ( $show_points )
 					$row_string .= $row_td . get_post_meta( $team->ID, 'mstw_ls_points', true ) . '</td>';
 				if ( $show_games_behind )
